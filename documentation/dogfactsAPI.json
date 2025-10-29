@@ -1,0 +1,346 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Dog API",
+    "description": "The Dog API provides a wealth of information on dog breeds, groups, and fun facts. Access and integrate this data into your website or application with our easy-to-use JSON API.",
+    "version": "1.0.0",
+    "contact": {
+      "email": "dev@dogapi.dog"
+    }
+  },
+  "servers": [
+    {
+      "url": "https://dogapi.dog/api/v2"
+    }
+  ],
+  "tags": [
+    {
+      "name": "Breeds"
+    },
+    {
+      "name": "Facts"
+    },
+    {
+      "name": "Groups"
+    }
+  ],
+  "paths": {
+    "/breeds": {
+      "get": {
+        "tags": [
+          "Breeds"
+        ],
+        "summary": "List all dog breeds",
+        "description": "Retrieve a list of all available dog breeds.",
+        "operationId": "listBreeds",
+        "responses": {
+          "200": {
+            "description": "List of dog breeds retrieved successfully.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BreedsResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/breeds/{id}": {
+      "get": {
+        "tags": [
+          "Breeds"
+        ],
+        "summary": "Get details of a specific breed",
+        "description": "Retrieve detailed information about a specific dog breed by its ID.",
+        "operationId": "getBreed",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/id"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Details of the specified breed retrieved successfully.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BreedDetailsResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/facts": {
+      "get": {
+        "tags": [
+          "Facts"
+        ],
+        "summary": "List fun dog facts",
+        "description": "Retrieve a list of fun facts about dogs.",
+        "operationId": "listFacts",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/limit"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of fun dog facts retrieved successfully.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FactsResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/groups": {
+      "get": {
+        "tags": [
+          "Groups"
+        ],
+        "summary": "List all dog groups",
+        "description": "Retrieve a list of all dog groups.",
+        "operationId": "listGroups",
+        "responses": {
+          "200": {
+            "description": "List of dog groups retrieved successfully.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GroupsResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/groups/{id}": {
+      "get": {
+        "tags": [
+          "Groups"
+        ],
+        "summary": "Get details of a specific group",
+        "description": "Retrieve detailed information about a specific dog group by its ID.",
+        "operationId": "getGroup",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/id"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Details of the specified group retrieved successfully.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GroupDetailsResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "BreedsResponse": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Breed"
+            }
+          },
+          "links": {
+            "$ref": "#/components/schemas/Links"
+          }
+        }
+      },
+      "BreedDetailsResponse": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/Breed"
+          },
+          "links": {
+            "$ref": "#/components/schemas/Links"
+          }
+        }
+      },
+      "FactsResponse": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Fact"
+            }
+          }
+        }
+      },
+      "GroupsResponse": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Group"
+            }
+          },
+          "links": {
+            "$ref": "#/components/schemas/Links"
+          }
+        }
+      },
+      "GroupDetailsResponse": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/Group"
+          },
+          "links": {
+            "$ref": "#/components/schemas/Links"
+          }
+        }
+      },
+      "Breed": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Unique identifier for the breed."
+          },
+          "type": {
+            "type": "string",
+            "example": "breed"
+          },
+          "attributes": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string",
+                "description": "Name of the breed."
+              },
+              "description": {
+                "type": "string",
+                "description": "Description of the breed."
+              },
+              "hypoallergenic": {
+                "type": "boolean",
+                "description": "Indicates if the breed is hypoallergenic."
+              }
+            }
+          }
+        }
+      },
+      "Fact": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Unique identifier for the fact."
+          },
+          "type": {
+            "type": "string",
+            "example": "fact"
+          },
+          "attributes": {
+            "type": "object",
+            "properties": {
+              "body": {
+                "type": "string",
+                "description": "The fun fact about dogs."
+              }
+            }
+          }
+        }
+      },
+      "Group": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Unique identifier for the group."
+          },
+          "type": {
+            "type": "string",
+            "example": "group"
+          },
+          "attributes": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string",
+                "description": "Name of the group."
+              }
+            }
+          },
+          "relationships": {
+            "type": "object",
+            "properties": {
+              "breeds": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Breed"
+                }
+              }
+            }
+          }
+        }
+      },
+      "Links": {
+        "type": "object",
+        "properties": {
+          "self": {
+            "type": "string",
+            "description": "URL of the current page."
+          },
+          "next": {
+            "type": "string",
+            "description": "URL of the next page."
+          },
+          "prev": {
+            "type": "string",
+            "description": "URL of the previous page."
+          },
+          "last": {
+            "type": "string",
+            "description": "URL of the last page."
+          }
+        }
+      }
+    },
+    "parameters": {
+      "id": {
+        "name": "id",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "string"
+        },
+        "description": "Unique identifier for the resource."
+      },
+      "limit": {
+        "name": "limit",
+        "in": "query",
+        "schema": {
+          "type": "integer",
+          "default": 10,
+          "minimum": 1
+        },
+        "description": "The number of items to return."
+      }
+    }
+  }
+}

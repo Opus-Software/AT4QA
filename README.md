@@ -173,6 +173,24 @@ We also have an example of a translated product of a mask and a dictionary [here
 
 There is also an example of the data structure used in the construction of dictionaries [here](./generic_api_testing/translator/examples/data_structures/dict.json) and of a translated feature file [here](./generic_api_testing/translator/examples/data_structures/translatedFeature.json).
 
+# Translation
+
+To translate mask and dictionary files into feature files, you can run the following command:
+
+ > - `python generic_api_testing/translator/FeatureTranslator.py <maskName> <dictionaryName>`
+
+The files need to be placed in the directory translator at the project's root, within their respective subdirectories.
+It is possible to pass multiple dictionaries by separating them with commas.
+
+# Geração
+
+A sketch for a feature file can be generated from a documentation file in JSON or YAML, to do so,
+place the file in the `documentation` directory and run the following command:
+
+ > - `python generic_api_testing/generator/GenerateFeature.py <documentation>`
+
+The parameter `documentation` needs to include the files extension.
+
 ## Copyright
 
 Copyright © 2024 Opus Software

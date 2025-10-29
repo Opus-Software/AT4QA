@@ -175,6 +175,24 @@ Temos também um exemplo de um feature file final traduzido [aqui](./generic_api
 
 Para desenvolvedores, também temos um exemplo da estrutura de dados que será construída a partir do dicionário acima, para facilitar alterações futuras, [aqui](./generic_api_testing/translator/examples/data_structures/mask.json) e tambem do feature file traduzido [aqui](./generic_api_testing/translator/examples/data_structures/translatedMask.json).
 
+# Tradução
+
+Para traduzir uma máscara e um dicionário em um feature file, basta utilizar do seguinte comando:
+
+ > - `python generic_api_testing/translator/FeatureTranslator.py <mascara> <dicionario>`
+
+Os arquivos precisam estar dentro da pasta `translator` na raiz do projeto na subpasta de seu respectivo tipo.
+É possível passar múltiplos dicionários separados por vírgula.
+
+# Geração
+
+Um esqueleto inicial de um feature file pode ser gerado a partir de um arquivo JSON ou YAML de documentação, para tal
+coloque o arquivo na pasta `documentation` e execute o seguinte comando:
+
+ > - `python generic_api_testing/generator/GenerateFeature.py <documentacao>`
+
+O parâmetro `documentacao` precisa incluir a extensão do arquivo.
+
 ## Copyright
 
 Copyright © 2024 Opus Software
