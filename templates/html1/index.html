@@ -5,42 +5,43 @@
     <h1>Summary</h1>
     {% block summary %}
     <div class="metadata">
-      <table>
+          <table>
         {% block session_metadata %}
-        <tr>
-          <th>Started</th>
-          <td>{{ started|strftime(time_format) }}</td>
-        </tr>
-        <tr>
-          <th>Ended</th>
-          <td>
-            {% if ended %}
-              {{ ended|strftime(time_format) }}
-            {% else %}
-              <i>In progress...</i>
-            {% endif %}
-          </td>
-        </tr>
+            <tr>
+              <th>Started</th>
+              <td>{{ started|strftime(time_format) }}</td>
+            </tr>
+            <tr>
+              <th>Ended</th>
+              <td>
+                {% if ended %}
+                  {{ ended|strftime(time_format) }}
+                {% else %}
+                  <i>In progress...</i>
+                {% endif %}
+              </td>
+            </tr>
         {% endblock %}
-      </table>
-    </div>
+          </table>
+        </div>
     
       {% set tests_by_category = tests|groupby('status.category') %}
       {% set nodes_run = tests|map(attribute='item.nodeid')|list %}
+      {% set filtered_tests = tests|rejectattr('status.category', 'equalto', 'rerun')|list %}
       <div class="pieID--errors pie-chart--wrapper">
-        <h2>Tests: {{tests|length}}</h2>
-        <div class="pie-chart">
-          <div class="pie-chart__pie">
+        <h2>Tests: {{filtered_tests|length}}</h2>
+          <div class="pie-chart">
+            <div class="pie-chart__pie">
+            </div>
           </div>
-        </div>
-        <ul class="pie-chart__legend">
+          <ul class="pie-chart__legend">
           {% for category, tests in tests_by_category %}
           <li>
             <em>{{category}}</em>
             <span>{{ tests|count }}</span>
           </li>
-          {% endfor %}
-        </ul>
+            {% endfor %}
+          </ul>
         </div>
         <script>
           
@@ -97,7 +98,7 @@
                 "navy"
               ];
 
-            color = shuffle( color );
+            color = shuffle(color);
 
             $(dataElement+" span").each(function() {
               listData.push(Number($(this).html()));
@@ -115,6 +116,9 @@
               }
               else if($(dataElement + " li:nth-child(" + (i + 1) + ") em").html() == 'failed'){
                 color_slice = 'red'
+              }
+              else if($(dataElement + " li:nth-child(" + (i + 1) + ") em").html() == 'rerun'){
+                color_slice = '#FBC02D'
               }
               iterateSlices(id, size, pieElement, offset, i, 0, color_slice);
               $(dataElement + " li:nth-child(" + (i + 1) + ")").css("border-color", color_slice);
@@ -181,7 +185,7 @@
 </section>
 {% if warnings %}
   <section id="warnings">
-    <div class="container">
+    <div class="testList">
       <h1>Warnings</h1>
       {% for warning in warnings %}
         <div class="status badge warning">WARNING</div>
@@ -191,7 +195,7 @@
   </section>
 {% endif %}
 <section id="test-files">
-  <div class="container">
+  <div class="testList">
 
     <h1>test</h1>
     {% for fspath, tests in tests|groupby('item.name_file') %}

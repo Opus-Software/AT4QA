@@ -1,0 +1,23 @@
+@dogFacts
+Feature Mask: Dog Facts!
+
+  @dogFacts @success
+  Scenario Mask: Learning some dog breeds!
+
+    When the API with method <method=GET> is called on the endpoint <url=https://dogapi.dog/api/v2/breeds> with headers <headers=omitted>, parameters <params=omitted> and payload <payload=omitted>
+    Then the API will return "<status_code>"
+    And the API returned the data field in the response "<field>"
+
+    Examples:
+      | status_code | field |
+      | 404         | body  |
+
+  @dogFacts @failure
+  Scenario Mask: Failing the API call
+
+    When the API with method <method=GET> is called on the endpoint <url=https://dogapi.dog/api/v2/breeds> with headers <headers=omitted>, parameters <params=omitted> and payload <payload=omitted>
+    Then the API will return "<status_code>"
+
+    Examples:
+      | status_code |
+      | 404         |

@@ -32,7 +32,7 @@ body {
 }
 
 section {
-    padding: 0.75rem 0;
+    padding: 0 0.75rem;
 }
 
 h1 {
@@ -87,6 +87,7 @@ a:hover {
 @media only screen {
     .box {
         background-color: white;
+        color: black;
         border-radius: 4px;
         box-shadow: 0 1px 2px #afafaf;
     }
@@ -99,7 +100,7 @@ a:hover {
 
     {% for category, (bg, fg) in colors.items() %}
     .status.{{ category }} {
-        background-color: {{ bg }};
+        background-color: {% if category == 'rerun' %}#FBC02D{% else %}{{ bg }}{% endif %};
         color: {{ fg }};
     }
     {% endfor %}
@@ -110,6 +111,10 @@ details > summary {
     cursor: pointer;
     list-style: none;
     border-radius: 4px;
+}
+details[open] > summary {
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
 }
 
 details > summary:focus {
@@ -138,10 +143,18 @@ details[open] > summary > .title::before {
     transform: rotate(90deg);
 }
 
-.title {
+details[open] > summary > .customTitle::before {
+    transform: rotate(90deg);
+}
+
+.title, .customTitle {
     font-size: 1rem;
     margin: 0;
     padding: 0;
+}
+
+.customTitle::before{
+    margin: 0 0.3rem 0 0;
 }
 
 .duration {
@@ -155,16 +168,26 @@ details[open] > summary > .title::before {
 /**********************************************
  HEADER
 **********************************************/
-.header{
+.headerContainer{
     display: flex;
-    justify-content: space-between;
+    flex-direction: row;
+    justify-content: center;
+    gap: 1rem;
+    margin: 0 2%;
+    align-items: center;
 }
-header {
-    background: #fff;
-    color: #d22449;
-    padding: 1rem 0;
-    border-bottom: #d22449 1px solid;
 
+header {
+    background: #fafafa;
+    color: #ff9f1c;
+    padding: 0.5rem 0;
+    border-bottom: #ff9f1c 1px solid;
+    margin-bottom: 1rem;
+
+}
+
+.header-logo{
+    width: 8.5rem;
 }
 
 .report-title {
@@ -197,6 +220,10 @@ header {
 
 .metadata td {
     word-break: break-all;
+}
+
+.testIcon{
+    width: fit-content;
 }
 
 .graph {
@@ -249,10 +276,12 @@ header {
 
 .file > summary {
     padding: 0.4rem 0.5rem;
+    border: 1px solid transparent;
 }
 
 .file > summary:hover {
     background-color: rgba(200, 200, 200, 0.2);
+    border: 1px solid #FB7500;
 }
 
 .file > .content {
@@ -312,11 +341,11 @@ header {
 }
 
 .test-title {
-    display: grid;
-    grid-template-columns: auto 5em 1fr auto;
-    grid-gap: 0.75rem;
+    display: flex;
+    padding: 0 0.5rem;
+    gap: 1rem;
     align-items: center;
-    /* justify-content: start; */
+    justify-content: flex-start;
 }
 
 @media only screen and (min-width: 500px) {
@@ -326,6 +355,7 @@ header {
 }
 
 .test-name {
+    width: 100%;
     font-size: 1em;
     margin: 0;
     word-break: break-all;
@@ -384,11 +414,11 @@ td > pre {
 
 .phase > summary {
     padding: 0.4rem;
-    /* margin-left: 0.2rem; */
+    margin: 0.5rem 0;
 }
 
 .phase > summary:hover {
-    background-color: #f6f6f6;
+    border: 1px solid #FB7500;
 }
 
 .phase .status {
@@ -459,18 +489,31 @@ footer {
     font-family: arial, sans-serif;
     border-collapse: collapse;
 }
+
 .td_var, .th_var{
-    border: 1px solid #dddddd;
     text-align: left;
     padding: 8px;
     line-break: anywhere;
-  }
-  
- .tr_var:nth-child(even) {
-    background-color: #dddddd;
-  }
+}
 
+.td_var{
+    border-bottom: 1px solid #dddddd;
+}
 
+.td_var:nth-child(even){
+    border-left: 1px solid #dddddd;
+}
+
+.th_var{
+    background-color: #f3f3f3;
+    border-bottom: 1px solid white;
+    color: #222222;
+    border-left: 2px solid white;
+}
+
+.th_var:nth-child(even){
+    border-left: 1px solid white
+}
 
 /*****************************Pie******************/
 
@@ -487,7 +530,7 @@ footer {
 .pie-chart--wrapper{
 width: 400px;
 margin: 30px auto;
-text-align: center;
+    text-align: center;
 }
 
 .pie-chart__pie, .pie-chat__legend{
@@ -526,11 +569,11 @@ vertical-align: top
     margin: 220px auto;
 }
 .slice{
-  position: absolute;
-  width: 200px;
-  height: 200px;
-  clip: rect(0px, 200px, 200px, 100px);
-  animation: bake-pie 1s;
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    clip: rect(0px, 200px, 200px, 100px);
+    animation: bake-pie 1s;
 }
 .slice >  span{
     display: block;
@@ -544,16 +587,16 @@ vertical-align: top
     clip: rect(0px, 200px, 200px, 100px);
 }
 .pie-chart__legend{
-  display: block;
-  list-style-type: none;
-  padding: 0;
-  margin: 0 auto;
-  background: #FFF;
-  padding: 0.75em 0.75em 0.05em;
-  font-size: 13px;
-  box-shadow: 1px 1px 0 #DDD, 2px 2px 0 #BBB;
-  text-align: left;
-  width: 65%;
+    display: block;
+    list-style-type: none;
+    margin: 0 auto;
+    background: #FFF;
+    padding: 0.75em 0.75em 0.05em;
+    font-size: 13px;
+    text-align: left;
+    width: 50%;
+    border: 1px solid #ff9f1c;
+    border-radius: 10px;
 }
 .pie-chart__legend >  li{
     height: 1.25em;
@@ -566,4 +609,40 @@ vertical-align: top
 }
 .pie-chart__legend >  span{
     float: right
+}
+
+.testMetadata{
+    padding: 0 2rem;
+}
+
+.testMetadata tr{
+    display: flex;
+    gap: 1rem;
+    border-radius: 8px;
+    padding: 0.5rem 0;
+    flex-direction: row;
+}
+
+.documentation{
+    display: flex;
+    border-radius: 8px;
+    background: #ff9f1c;
+    font-weight: 700;
+    color: white;
+    font-size: larger;
+    text-align: center;
+    padding: 1rem;
+    border-bottom: 1px solid #ff9f1c;
+    margin-bottom: 1rem;
+    justify-content: center;
+    align-items: center;
+}
+
+.footerContainer{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 1rem;
+    padding: 2rem;
+    align-items: center;
 }
