@@ -182,7 +182,7 @@ To translate mask and dictionary files into feature files, you can run the follo
 The files need to be placed in the directory translator at the project's root, within their respective subdirectories.
 It is possible to pass multiple dictionaries by separating them with commas.
 
-# Geração
+# Generation
 
 A sketch for a feature file can be generated from a documentation file in JSON or YAML, to do so,
 place the file in the `documentation` directory and run the following command:

@@ -1,0 +1,147 @@
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: #ededed;
+  margin: 0;
+  min-height: 100vh;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  justify-items: center;
+}
+
+main {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  justify-items: center;
+  width: 100%;
+}
+
+h1 {
+  margin: 1rem;
+  margin-top: 1.5rem;
+  text-align: center;
+  font-size: 2.5rem; 
+  font-weight: bolder;
+}
+
+.titleSeparator {
+  border-color: #919191;
+  width: 100%;
+}
+
+
+.headerMenu {
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  justify-content: space-between;
+  width: 100%;
+  top: 0;
+  position: sticky;
+  z-index: 10;
+}
+
+.mainHeader {
+  display: flex;
+  background-color: white;
+  color: #ff9f1c;
+  justify-content: center;
+  border-bottom: solid 1px #ff9f1c;
+  align-items: center;
+  height: 12vh;
+  width: 100%;
+  box-sizing: border-box;
+  z-index: 1000;
+  padding: 0 1rem;
+}
+
+.headerButtons {
+  display: flex;
+  justify-content: space-between;
+  width: 55vw;
+  margin-bottom: 2px;
+  font-family: sans-serif;
+  margin-right: 10px;
+  padding-right: 2rem;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-left: 1.5rem;
+}
+
+.buttonDivider {
+  border-color: #ff9f1c;
+  height: 2rem;
+}
+
+.headerLogoLink {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: max-content;
+  text-decoration: none;
+  color: #ff9f1c;
+  font-family: sans-serif;
+  font-size: 1.5rem;
+  font-weight: 600;
+  padding-left: 2rem;
+  margin-bottom: 2px;
+}
+
+.headerLogoLink > img {
+  width: 8rem;
+  padding-right: 0.5rem;
+}
+
+.headerButtonLink {
+  color: #ff9f1c;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 1.1rem;
+  font-family: sans-serif;
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
+}
+
+@media (max-width: 768px) {
+  .mainHeader {
+    flex-direction: column;
+    height: auto;
+    padding: 1rem;
+  }
+
+  .headerButtons {
+    width: 100%; 
+    justify-content: center; 
+    margin: 0;
+    padding: 0;
+  }
+
+  .headerLogoLink {
+    padding-left: 0;
+    margin-bottom: 1rem;
+    font-size: 1.2rem; 
+  }
+
+  .headerLogoLink > img {
+    width: 40px; 
+    height: 40px;
+  }
+
+  .headerButtonLink {
+    font-size: 0.9rem; 
+    margin: 0.3rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .headerButtonLink {
+    font-size: 0.8rem; 
+    margin: 0.2rem;
+  }
+
+  .headerLogoLink {
+    font-size: 1rem;
+  }
+}
